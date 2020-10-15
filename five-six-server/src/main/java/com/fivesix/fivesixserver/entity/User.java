@@ -1,8 +1,20 @@
 package com.fivesix.fivesixserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
+
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
+
     private String userName;
     private String password;
 
