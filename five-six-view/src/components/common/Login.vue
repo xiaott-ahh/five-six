@@ -2,7 +2,7 @@
   <div class="login-form">
     <el-form :model="loginForm" label-position="top" ref="loginForm" label-width="100px" class="login">
       <el-form-item label="用户名/邮箱">
-        <el-input size="small" type="text" v-model="loginForm.userName" autocomplete="off"></el-input>
+        <el-input size="small" type="text" v-model="loginForm.username" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="密码">
         <el-input size="small" type="password" v-model="loginForm.password" autocomplete="off"></el-input>
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       loginForm: {
-        userName: '',
+        username: '',
         password: ''
       },
       responseResult: []
@@ -44,7 +44,7 @@ export default {
     login () {
       this.$axios
           .post('/login', {
-            userName: this.loginForm.userName,
+            username: this.loginForm.username,
             password: this.loginForm.password
           },)
           .then(successResponse => {
