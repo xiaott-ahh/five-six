@@ -1,29 +1,62 @@
 package com.fivesix.fivesixserver.service;
 
-import com.fivesix.fivesixserver.dao.UserDao;
 import com.fivesix.fivesixserver.entity.User;
+import com.fivesix.fivesixserver.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
 
     @Autowired
-    UserDao userDao;
+    UserMapper userMapper;
 
-    public boolean exist(String name) {
-        return getByName(name) == null ? false : true;
+    public User getUserById(long id) {
+        User user = userMapper.getById(id);
+        if (user == null) {
+            throw new RuntimeException("user not found!");
+        }
+        return user;
     }
 
-    public User getByName(String name) {
-        return userDao.findByUsername(name);
+    public User getUserByName(String name) {
+        User user = userMapper.getByName(name);
+        if (user == null) {
+            throw new RuntimeException("user not found!");
+        }
+        return user;
     }
 
-    public User get(String name, String password) {
-        return userDao.getByUsernameAndPassword(name,password);
+    public List<User> fetchAll(int pageIndex) {
+        int pageSize = 100;
+        return userMapper.getAll((pageIndex-1) * pageSize,pageSize);
     }
 
-    public void add(User user) {
-        userDao.save(user);
+    public User login(String name, String password) {
+        User user = userMapper.getByName(name);
+        if (user != null && (user.getPassword().equals(password))) {
+            return user;
+        }
+        throw new RuntimeException("login failed");
+    }
+
+    public User register(String name, String password) {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(password);
+        userMapper.insert(user);
+        return user;
+    }
+
+    public void updateUser(Long id, String name) {
+        User user = getUserById(id);
+        user.setName(name);
+        userMapper.update(user);
+    }
+
+    public void deleteUser(Long id) {
+        userMapper.deleteById(id);
     }
 }

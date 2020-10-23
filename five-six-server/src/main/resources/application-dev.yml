@@ -1,0 +1,15 @@
+server:
+  port: 8443
+
+spring:
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://127.0.0.1:3306/fivesix?characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+mybatis:
+  type-aliases-package: com.fivesix.fivesixserver.entity
+
+

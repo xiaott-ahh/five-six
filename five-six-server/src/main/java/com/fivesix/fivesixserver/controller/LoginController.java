@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
+
 @Controller
 public class LoginController {
 
@@ -21,11 +22,13 @@ public class LoginController {
     @PostMapping(value = "/api/login")
     @ResponseBody
     public Result login(@RequestBody User requestUser) {
-        String requestUserName = HtmlUtils.htmlEscape(requestUser.getUsername());
-        if (!userService.exist(requestUserName) || !userService.getByName(requestUserName).getPassword().equals(requestUser.getPassword())) {
-            return new Result(400,"账户或密码错误");
-        }else {
-            return new Result(200,"登录成功");
+        String requestUserName = HtmlUtils.htmlEscape(requestUser.getName());
+        try{
+            User user = userService.login(requestUserName,requestUser.getPassword());
+            return new Result(200,"login successfully");
+
+        } catch (RuntimeException e) {
+            return new Result(400,e.getMessage());
         }
     }
 }
