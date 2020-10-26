@@ -9,55 +9,43 @@ import java.util.List;
 public interface MovieMapper {
 
     @Select("SELECT * FROM `movies` WHERE `id` = #{id}")
-    @Results ({
+    @Results (id = "categoriesOfMovie",value={
         @Result(
-            column = "cid",property = "category",
-            one = @One(select = "com.fivesix.fivesixserver.mapper.CategoryMapper.getById")
+            id = true,column = "id",property = "id"
+        ),
+        @Result(
+            column = "id",property = "categories",
+            many = @Many(select = "com.fivesix.fivesixserver.mapper.CategoryMapper.getAllByMovieId")
         )
     })
     Movie get(@Param("id") int id);
 
     @Select("SELECT * FROM `movies`")
-    @Results ({
-            @Result(
-                    column = "cid",property = "category",
-                    one = @One(select = "com.fivesix.fivesixserver.mapper.CategoryMapper.getById")
-            )
-    })
+    @ResultMap(value = "categoriesOfMovie")
     List<Movie> getAll();
 
-    @Select("SELECT * FROM `movies` WHERE `cid` = #{category.id}")
-    @Results ({
-            @Result(
-                    column = "cid",property = "category",
-                    one = @One(select = "com.fivesix.fivesixserver.mapper.CategoryMapper.getById")
-            )
-    })
+    @Select("SELECT * FROM `movies` WHERE `id` IN (SELECT `mid` FROM `movie-category` WHERE `cid` = #{category.id})")
+    @ResultMap(value = "categoriesOfMovie")
     List<Movie> getAllByCategory(@Param("category") Category category);
 
     @Select("SELECT * FROM `movies` WHERE `title` = #{title}")
-    @Results ({
-            @Result(
-                    column = "cid",property = "category",
-                    one = @One(select = "com.fivesix.fivesixserver.mapper.CategoryMapper.getById")
-            )
-    })
+    @ResultMap(value = "categoriesOfMovie")
     Movie getByMovieName(@Param("title") String title);
 
     @Select("SELECT * FROM `movies` WHERE `director` = #{director}")
-    @Results ({
-            @Result(
-                    column = "cid",property = "category",
-                    one = @One(select = "com.fivesix.fivesixserver.mapper.CategoryMapper.getById")
-            )
-    })
+    @ResultMap(value = "categoriesOfMovie")
     List<Movie> getAllByDirectorName(@Param("director") String director);
 
+    @Select("SELECT * FROM `movies` WHERE `director` LIKE CONCAT ('%',#{keywords},'%') OR `actors` LIKE CONCAT('%',#{keywords},'%') OR `title` LIKE CONCAT ('%',#{keywords},'%')")
+    @ResultMap(value = "categoriesOfMovie")
+    List<Movie> getAllByFuzzySearch(@Param("keywords") String keywords);
+
+
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
-    @Insert("INSERT INTO `movies`(`cover`,`title`,`director`,`language`,`actors`,`nation`,`rate`,`date`,`abs`,`cid`) VALUES (#{movie.cover},#{movie.title},#{movie.director},#{movie.language},#{movie.actors},#{movie.nation},#{movie.rate},#{movie.date},#{movie.abs},#{movie.category.id})")
+    @Insert("INSERT INTO `movies`(`cover`,`title`,`date`,`rate`,`director`,`scriptwriter`,`actors`,`district`,`language`,`duration`,`abs`) VALUES (#{movie.cover},#{movie.title},#{movie.date},#{movie.rate},#{movie.director},#{movie.scriptwriter},#{movie.actors},#{movie.district},#{movie.language},#{movie.duration},#{movie.abs})")
     void insert(@Param("movie") Movie movie);
 
-    @Update("UPDATE `movies` SET `title`=#{movie.title},`cover`=#{movie.cover},`director`=#{movie.director},`language`=#{movie.language},`actors`=#{movie.actors},`nation`=#{movie.nation},`rate`=#{movie.rate},`date`=#{movie.date},`abs`=#{movie.abs},`cid`=#{movie.category.id} WHERE `id`=#{movie.id}")
+    @Update("UPDATE `movies` SET `title`=#{movie.title},`cover`=#{movie.cover},`scriptwriter`=#{movie.scriptwriter},`director`=#{movie.director},`language`=#{movie.language},`actors`=#{movie.actors},`district`=#{movie.district},`rate`=#{movie.rate},`date`=#{movie.date},`abs`=#{movie.abs},`duration`=#{movie.duration} WHERE `id`=#{movie.id}")
     void update(@Param("movie") Movie movie);
 
     @Delete("DELETE FROM `movies` WHERE `id` = #{movie.id}")

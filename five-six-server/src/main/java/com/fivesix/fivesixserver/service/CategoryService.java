@@ -15,14 +15,6 @@ public class CategoryService {
     @Autowired
     CategoryMapper categoryMapper;
 
-    public List<Category> listALL() {
-        List<Category> res = categoryMapper.getAll();
-        if (res != null) {
-            res.sort(Comparator.comparingInt(Category::getId));
-        }
-        return res;
-    }
-
     public Category get(int id) {
         Category c = Optional.ofNullable(categoryMapper.getById(id)).orElse(null);
         return c;

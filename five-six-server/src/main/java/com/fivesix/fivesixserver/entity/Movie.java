@@ -1,32 +1,29 @@
 package com.fivesix.fivesixserver.entity;
 
+import java.util.Set;
+
 public class Movie {
 
-    private int id;
+    private Integer id;
+
     private String cover;
     private String title;
-    private String director;
-    private String language;
-    private String actors;
-    private String nation;
-    private float rate;
     private String date;
+    private Float rate;
+    private String director;
+    private String scriptwriter;
+    private String actors;
+    private String district;
+    private String language;
+    private Integer duration;
     private String abs;
-    private Category category;
+    private Set<Category> categories;
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,6 +43,22 @@ public class Movie {
         this.title = title;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Float getRate() {
+        return rate;
+    }
+
+    public void setRate(Float rate) {
+        this.rate = rate;
+    }
+
     public String getDirector() {
         return director;
     }
@@ -54,12 +67,12 @@ public class Movie {
         this.director = director;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getScriptwriter() {
+        return scriptwriter;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setScriptwriter(String scriptwriter) {
+        this.scriptwriter = scriptwriter;
     }
 
     public String getActors() {
@@ -70,28 +83,28 @@ public class Movie {
         this.actors = actors;
     }
 
-    public String getNation() {
-        return nation;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setNation(String nation) {
-        this.nation = nation;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
-    public float getRate() {
-        return rate;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setRate(float rate) {
-        this.rate = rate;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
-    public String getDate() {
-        return date;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public String getAbs() {
@@ -101,4 +114,13 @@ public class Movie {
     public void setAbs(String abs) {
         this.abs = abs;
     }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
 }

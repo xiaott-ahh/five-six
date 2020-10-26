@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DBInitializer {
 
-    @Value("classpath:user.sql")
+    @Value("classpath:initDB.sql")
     private Resource usersScript;
 
     @Bean

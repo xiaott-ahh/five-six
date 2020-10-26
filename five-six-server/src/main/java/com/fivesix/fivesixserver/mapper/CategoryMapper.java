@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface CategoryMapper {
 
-    @Select("SELECT * FROM `category`")
-    List<Category> getAll();
+    @Select("SELECT * FROM `categories` WHERE id IN(SELECT `cid` FROM `movie-category` WHERE `mid`= #{mid})")
+    List<Category> getAllByMovieId(@Param("mid") Long mid);
 
-    @Select("SELECT * FROM `category` WHERE `id` = #{id}")
+    @Select("SELECT * FROM `categories` WHERE `id` = #{id}")
     Category getById(@Param("id") int id);
 }

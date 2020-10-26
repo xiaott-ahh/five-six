@@ -18,13 +18,24 @@ public class MovieService {
     @Autowired
     MovieMapper movieMapper;
 
+    @Autowired
+    MovieCategoryService movieCategoryService;
+
     public List<Movie> list(){
         List<Movie> res = movieMapper.getAll();
         if (res != null) {
             res.sort(Comparator.comparingInt(Movie::getId));
             return res;
         }
-        throw new RuntimeException("movie set is empty");
+        throw new RuntimeException("movie set is empty!");
+    }
+
+    public List<Movie> listByRate() {
+        List<Movie> res = movieMapper.getAll();
+        if (res != null) {
+            res.sort(Comparator.comparingDouble(Movie::getRate));
+        }
+        return res;
     }
 
     public List<Movie> listByCategory(int cid) {
@@ -40,23 +51,12 @@ public class MovieService {
         throw new RuntimeException("no such category!");
     }
 
-    public List<Movie> listByDirector(String director) {
-        List<Movie> res = movieMapper.getAllByDirectorName(director);
-        if (res != null) {
-            res.sort(Comparator.comparingInt(Movie::getId));
-            return res;
-        } else {
-            throw new RuntimeException("no movie found of this director!");
-        }
+    public List<Movie> listByKeywords(String keywords) {
+        return movieMapper.getAllByFuzzySearch(keywords);
     }
 
     public Movie getByMovieName(String title) {
-        Movie movie = movieMapper.getByMovieName(title);
-        if (movie != null) {
-            return movie;
-        } else {
-            throw new RuntimeException("no movie found of this title");
-        }
+        return movieMapper.getByMovieName(title);
     }
 
     public void deleteById(int id) {
@@ -72,16 +72,16 @@ public class MovieService {
         movieMapper.update(movie);
     }
 
-    public void add(Movie movie) {
-        movieMapper.insert(movie);
+    public void updateMovieAndCategories(Movie movie) {
+        movieCategoryService.delete(movie);
+        movie.getCategories().forEach(Category::toString);
+        movieMapper.update(movie);
+        movieCategoryService.add(movie);
+        movie.getCategories().forEach(Category::toString);
     }
 
     public void save(Movie movie) {
-        try {
-            Movie movie1 = getByMovieName(movie.getTitle());
-            update(movie);
-        }catch (RuntimeException e) {
-            add(movie);
-        }
+        movieMapper.insert(movie);
+        movieCategoryService.add(movie);
     }
 }
