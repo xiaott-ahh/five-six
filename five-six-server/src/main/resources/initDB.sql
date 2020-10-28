@@ -1,4 +1,6 @@
 use fivesix;
+
+DROP TABLE IF EXISTS `users`;
 /*
 DROP TABLE IF EXISTS `movie-category`;
 DROP TABLE IF EXISTS `users`;
@@ -8,7 +10,9 @@ DROP TABLE IF EXISTS `categories`;
 create table if not exists `users`(
     `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `name` varchar (255) NOT NULL,
-    `password` varchar (255) NOT NULL
+    `password` varchar (255) NOT NULL,
+    `salt` varchar(255) NOT NULL,
+    UNIQUE (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
@@ -44,9 +48,10 @@ create table if not exists `movie-category` (
     KEY `fk_on_category_id` (`cid`),
     CONSTRAINT `fk_on_category_id` FOREIGN KEY (`cid`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8;
--------
---- records of users
--------
+
+--
+-- records of users
+--
 /*
 INSERT INTO `users` VALUES (1,'admin','password');
 
