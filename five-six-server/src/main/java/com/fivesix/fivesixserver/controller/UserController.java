@@ -10,29 +10,27 @@ import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 
 @Controller
-public class LoginController {
+public class UserController {
 
 
     final UserService userService;
 
-    public LoginController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
-    @CrossOrigin
+
     @PostMapping(value = "/api/login")
     @ResponseBody
-    public Result login(@RequestBody User requestUser) {
+    public Result login(@RequestBody User requestUser,@RequestParam(value = "rememberMe") boolean rememberMe) {
         String requestUserName = HtmlUtils.htmlEscape(requestUser.getName());
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(requestUserName,requestUser.getPassword());
+        usernamePasswordToken.setRememberMe(rememberMe);
         try{
             subject.login(usernamePasswordToken);
             return new Result(200,"login successfully");
@@ -42,7 +40,6 @@ public class LoginController {
         }
     }
 
-    @CrossOrigin
     @PostMapping("/api/register")
     @ResponseBody
     public Result register(@RequestBody User user) {
@@ -63,5 +60,19 @@ public class LoginController {
         }catch (Exception e) {
             return new Result(400,e.getMessage());
         }
+    }
+
+    @GetMapping("api/logout")
+    @ResponseBody
+    public Result logout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return new Result(200,"登出成功");
+    }
+
+    @GetMapping("api/authentication")
+    @ResponseBody
+    public Result authenticate() {
+        return new Result(200,"认证成功");
     }
 }
