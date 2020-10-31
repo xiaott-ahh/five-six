@@ -1,20 +1,11 @@
 use fivesix;
 
-DROP TABLE IF EXISTS `users`;
 /*
 DROP TABLE IF EXISTS `movie-category`;
 DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `movies`;
 DROP TABLE IF EXISTS `categories`;
 */
-create table if not exists `users`(
-    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `name` varchar (255) NOT NULL,
-    `password` varchar (255) NOT NULL,
-    `salt` varchar(255) NOT NULL,
-    UNIQUE (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
 
 create table if not exists `categories` (
     `id` int(11) NOT NULL PRIMARY KEY,

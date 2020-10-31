@@ -11,5 +11,6 @@ spring:
 
 mybatis:
   type-aliases-package: com.fivesix.fivesixserver.entity
+  mapper-locations: classpath:/mapper/*.xml
 
 

@@ -9,25 +9,24 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.List;
 
-@Controller
+
+@RestController
 public class UserController {
 
+    private final UserService userService;
 
-    final UserService userService;
-
-    public UserController(UserService userService) {
+    public UserController (UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping(value = "/api/login")
-    @ResponseBody
     public Result login(@RequestBody User requestUser,@RequestParam(value = "rememberMe") boolean rememberMe) {
-        String requestUserName = HtmlUtils.htmlEscape(requestUser.getName());
+        String requestUserName = HtmlUtils.htmlEscape(requestUser.getUsername());
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(requestUserName,requestUser.getPassword());
         usernamePasswordToken.setRememberMe(rememberMe);
@@ -36,15 +35,15 @@ public class UserController {
             return new Result(200,"login successfully");
 
         } catch (AuthenticationException e) {
+            e.printStackTrace();
             return new Result(400,"账号或密码错误");
         }
     }
 
     @PostMapping("/api/register")
-    @ResponseBody
     public Result register(@RequestBody User user) {
-        String username = HtmlUtils.htmlEscape(user.getName());
-        user.setName(username);
+        String username = HtmlUtils.htmlEscape(user.getUsername());
+        user.setUsername(username);
         //生成盐
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         user.setSalt(salt);
@@ -58,12 +57,12 @@ public class UserController {
             userService.register(user);
             return new Result(200,"register successfully.");
         }catch (Exception e) {
+            e.printStackTrace();
             return new Result(400,e.getMessage());
         }
     }
 
     @GetMapping("api/logout")
-    @ResponseBody
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
@@ -71,8 +70,32 @@ public class UserController {
     }
 
     @GetMapping("api/authentication")
-    @ResponseBody
     public Result authenticate() {
         return new Result(200,"认证成功");
+    }
+
+    @GetMapping("api/admin/user")
+    public List<User> getAllUsers() {
+        return userService.listAll();
+    }
+
+    @PostMapping("api/admin/user/delete")
+    public Result delete(@RequestBody User user) {
+        try {
+            userService.deleteUser(user);
+            return new Result(200,"删除用户成功");
+        }catch (Exception e) {
+            return new Result(400,"删除用户失败");
+        }
+    }
+
+    @PutMapping("api/admin/user/update")
+    public Result update(@RequestBody User user) {
+        try{
+            userService.updateUser(user);
+            return new Result(200,"更新用户成功");
+        }catch (Exception e){
+            return new Result(400,"更新用户失败");
+        }
     }
 }

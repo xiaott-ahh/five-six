@@ -13,8 +13,12 @@ import javax.sql.DataSource;
 @Configuration
 public class DBInitializer {
 
-    @Value("classpath:initDB.sql")
-    private Resource usersScript;
+    @Value("classpath:initMovie.sql")
+    private Resource initMovie;
+
+    @Value("classpath:initAdmin.sql")
+    private Resource initAdmin;
+
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
@@ -26,7 +30,7 @@ public class DBInitializer {
 
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScripts(usersScript);
+        populator.addScripts(initAdmin);
         return populator;
     }
 }
