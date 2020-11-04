@@ -30,7 +30,7 @@ public class DBInitializer {
 
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScripts(initAdmin);
+        populator.addScripts(initMovie);
         return populator;
     }
 }

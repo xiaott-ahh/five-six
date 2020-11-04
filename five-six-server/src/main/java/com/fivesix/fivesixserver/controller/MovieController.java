@@ -83,7 +83,7 @@ public class MovieController {
      */
     @PostMapping("/api/admin/content/movie/cover")
     public String coversUpload(MultipartFile file) throws Exception {
-        String folder = "D:/workspace/fivesix/img";
+        String folder = "D:/workspace/fivesix/img/full";
         File imageFolder = new File(folder);
         //对文件重命名，保留文件的格式png/jpg
         String newName = UUID.randomUUID().toString();

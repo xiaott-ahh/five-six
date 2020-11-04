@@ -15,7 +15,7 @@ public class Movie {
     private String actors;
     private String district;
     private String language;
-    private Integer duration;
+    private String duration;
     private String abs;
     private Set<Category> categories;
 
@@ -99,11 +99,11 @@ public class Movie {
         this.language = language;
     }
 
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

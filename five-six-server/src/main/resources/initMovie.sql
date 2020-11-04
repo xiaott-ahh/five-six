@@ -1,10 +1,12 @@
 use fivesix;
 
 /*
-DROP TABLE IF EXISTS `movie-category`;
-DROP TABLE IF EXISTS `users`;
-DROP TABLE IF EXISTS `movies`;
-DROP TABLE IF EXISTS `categories`;
+
+
+
+drop table if exists `movie-category`;
+drop table if exists `categories`;
+drop table if exists `movies`;
 */
 
 create table if not exists `categories` (
@@ -16,16 +18,16 @@ create table if not exists `categories` (
 create table if not exists `movies`(
     `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `cover` varchar (255) NOT NULL DEFAULT '',
-    `title` varchar (255) NOT NULL DEFAULT '',
-    `date` varchar (255) NOT NULL DEFAULT '',
+    `title` varchar (50) NOT NULL DEFAULT '',
+    `date` varchar (10) NOT NULL DEFAULT '',
     `rate` float DEFAULT 0,
-    `director` varchar (255) NOT NULL DEFAULT '',
-    `scriptwriter` varchar(255) NOT NULL DEFAULT '',
-    `actors` varchar (255) DEFAULT '',
-    `district` varchar (255) DEFAULT '',
+    `director` varchar (100) NOT NULL DEFAULT '',
+    `scriptwriter` varchar(100) NOT NULL DEFAULT '',
+    `actors` text,
+    `district` varchar(255) DEFAULT '',
     `language` varchar (255) DEFAULT '',
-    `duration` int(3) DEFAULT 0,
-    `abs` varchar (255) DEFAULT NULL,
+    `duration` varchar (100) DEFAULT '',
+    `abs` text,
     UNIQUE (`title`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -40,15 +42,10 @@ create table if not exists `movie-category` (
     CONSTRAINT `fk_on_category_id` FOREIGN KEY (`cid`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
---
--- records of users
---
-/*
-INSERT INTO `users` VALUES (1,'admin','password');
 
-------
---records of category
-------
+/*
+records of category
+
 INSERT INTO `categories` VALUES (1,'剧情');
 INSERT INTO `categories` VALUES (2,'喜剧');
 INSERT INTO `categories` VALUES (3,'动作');
@@ -72,6 +69,7 @@ INSERT INTO `categories` VALUES (20,'灾难');
 INSERT INTO `categories` VALUES (21,'武侠');
 INSERT INTO `categories` VALUES (22,'情色');
 
+/*
 -------
 --records of movies
 -------
