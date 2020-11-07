@@ -9,28 +9,28 @@
 ## 主页
 主页是网站的门户，进行导航和slogan的展示，提供搜索的功能
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/showGifs/home.gif)
+![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/home.webp)
 ## 搜索
 可以根据关键词进行搜索（导演、演员)，后端目前采用模糊查询的方式返回数据库中的记录
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/showGifs/search.gif)
+![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/search.webp)
 ## 电影集
 该页是电影信息展示和选择界面，仿豆瓣界面设计；可以根据类别、评分、时间进行电影的搜索；目前包含1500+电影信息（也就是爬200部封一次ip吧...）
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/showGifs/movies.gif)
+![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/movies.webp)
 #### 待完成
 - [ ] 加入电影的资源地址
 - [ ] 爬更多的电影...
 ## 向我推荐
 该界面主要是根据用户的浏览记录和收藏等信息对其进行个性化推荐
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/showGifs/rec.gif)
+![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/rec.webp)
 ## 影讯
 待开发...
 # 后台效果
 后台主要进行用户管理、角色配置以及电影信息管理
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/showGifs/manage.gif)
+![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/manage.webp)
 # 技术架构
 
 # 主要技术栈
