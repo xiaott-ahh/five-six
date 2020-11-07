@@ -24,6 +24,10 @@ public interface MovieMapper {
     @ResultMap(value = "categoriesOfMovie")
     List<Movie> getAll();
 
+    @Select("SELECT * FROM `movies` LIMIT #{startIndex},21")
+    @ResultMap(value = "categoriesOfMovie")
+    List<Movie> getByPageIndex(@Param("startIndex") int startIndex);
+
     @Select("SELECT * FROM `movies` WHERE `id` IN (SELECT `mid` FROM `movie-category` WHERE `cid` = #{category.id})")
     @ResultMap(value = "categoriesOfMovie")
     List<Movie> getAllByCategory(@Param("category") Category category);

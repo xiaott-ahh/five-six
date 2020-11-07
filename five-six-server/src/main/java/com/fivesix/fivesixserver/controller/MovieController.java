@@ -28,6 +28,12 @@ public class MovieController {
         return movieService.list().stream().sorted(Comparator.comparingDouble(Movie::getRate).reversed()).collect(Collectors.toList());
     }
 
+    @GetMapping("/api/movies/page/{pageIndex}")
+    public List<Movie> listByPageIndex(@PathVariable("pageIndex") int pageIndex) {
+        System.out.printf("请求起始为%d:的21部电影\n",pageIndex);
+        return movieService.listByPageIndex(pageIndex).stream().sorted(Comparator.comparingDouble(Movie::getRate).reversed()).collect(Collectors.toList());
+    }
+
     @GetMapping("/api/movies/category/{cid}/{dateOrRate}")
     public Object listByCategory(@PathVariable("cid") int cid, @PathVariable("dateOrRate") int dateOrRate) throws Exception {
         List<Movie> res;

@@ -30,6 +30,15 @@ public class MovieService {
         throw new RuntimeException("movie set is empty!");
     }
 
+    public List<Movie> listByPageIndex(int pageIndex) {
+        List<Movie> res = movieMapper.getByPageIndex(pageIndex);
+        if (res != null) {
+            res.sort(Comparator.comparingInt(Movie::getId));
+            return res;
+        }
+        throw new RuntimeException("movie set is emtpy!");
+    }
+
     public List<Movie> listByRate() {
         List<Movie> res = movieMapper.getAll();
         if (res != null) {
