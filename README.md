@@ -13,26 +13,26 @@
 ## 搜索
 可以根据关键词进行搜索（导演、演员)，后端目前采用模糊查询的方式返回数据库中的记录
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/search.webp)
+![image](https://img-blog.csdnimg.cn/20201108085858568.png#pic_center)
 ## 电影集
 该页是电影信息展示和选择界面，仿豆瓣界面设计；可以根据类别、评分、时间进行电影的搜索；目前包含1500+电影信息（也就是爬200部封一次ip吧...）
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/movies.webp)
+![image](https://img-blog.csdnimg.cn/20201108085858459.png#pic_center)
 #### 待完成
 - [ ] 加入电影的资源地址
 - [ ] 爬更多的电影...
 ## 向我推荐
 该界面主要是根据用户的浏览记录和收藏等信息对其进行个性化推荐
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/rec.webp)
+![image](https://img-blog.csdnimg.cn/20201108084049948.gif#pic_center)
 ## 影讯
 待开发...
 # 后台效果
 后台主要进行用户管理、角色配置以及电影信息管理
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/manage.webp)
+![image](https://img-blog.csdnimg.cn/20201108084153284.gif#pic_center)
 # 技术架构
-
+![image](https://img-blog.csdnimg.cn/20201108093528383.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY5Mjc5MQ==,size_16,color_FFFFFF,t_70#pic_center)
 # 主要技术栈
 ## 前端
 - Vue.js
@@ -42,5 +42,7 @@
 - Spring Boot
 - MyBatis
 - Apache Shiro
+- Spring Data Redis
 ## 数据库
 - MySQL
+- Redis
