@@ -1,4 +1,4 @@
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/images/logo.png)
+![image](https://img-blog.csdnimg.cn/20201108174935393.png#pic_center)
 ***
 ![](https://img.shields.io/badge/language-java-red.svg)  ![](https://img.shields.io/badge/licsense-MIT-green.svg)
 # 项目简介
@@ -9,15 +9,15 @@
 ## 主页
 主页是网站的门户，进行导航和slogan的展示，提供搜索的功能
 
-![image](https://github.com/xiaott-ahh/five-six-vue/blob/master/src/assets/show/home.webp)
+![image](https://img-blog.csdnimg.cn/20201108180012940.gif#pic_center)
 ## 搜索
 可以根据关键词进行搜索（导演、演员)，后端目前采用模糊查询的方式返回数据库中的记录
 
-![image](https://img-blog.csdnimg.cn/20201108085858568.png#pic_center)
+![image](https://img-blog.csdnimg.cn/20201108180440677.gif#pic_center)
 ## 电影集
 该页是电影信息展示和选择界面，仿豆瓣界面设计；可以根据类别、评分、时间进行电影的搜索；目前包含1500+电影信息（也就是爬200部封一次ip吧...）
 
-![image](https://img-blog.csdnimg.cn/20201108085858459.png#pic_center)
+![image](https://img-blog.csdnimg.cn/2020110818093119.gif#pic_center)
 #### 待完成
 - [ ] 加入电影的资源地址
 - [ ] 爬更多的电影...
