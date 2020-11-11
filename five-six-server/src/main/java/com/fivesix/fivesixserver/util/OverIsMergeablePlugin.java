@@ -7,6 +7,9 @@ import org.mybatis.generator.api.PluginAdapter;
 import java.lang.reflect.Field;
 import java.util.List;
 
+/*
+使用mybatis-generator时避免xml文件被覆盖的插件类
+ */
 public class OverIsMergeablePlugin extends PluginAdapter {
     @Override
     public boolean validate(List<String> warnings) {

@@ -3,6 +3,7 @@ package com.fivesix.fivesixserver.service;
 import com.fivesix.fivesixserver.entity.Category;
 import com.fivesix.fivesixserver.entity.Movie;
 import com.fivesix.fivesixserver.mapper.MovieMapper;
+import com.fivesix.fivesixserver.util.CastUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class MovieService {
     @Autowired
     MovieCategoryService movieCategoryService;
 
+    @Autowired
+    RedisService redisService;
+    /*
     public List<Movie> list(){
         List<Movie> res = movieMapper.getAll();
         if (res != null) {
@@ -28,6 +32,19 @@ public class MovieService {
             return res;
         }
         throw new RuntimeException("movie set is empty!");
+    }
+    */
+    public List<Movie> list() {
+        List<Movie> res;
+        String key = "movieList";
+        if (redisService.get(key) == null) {
+            res = movieMapper.getAll();
+            res.sort(Comparator.comparingInt(Movie::getId));
+            redisService.set(key,res);
+        } else {
+            res = CastUtil.objectConvertToList(redisService.get(key),Movie.class);
+        }
+        return res;
     }
 
     public List<Movie> listByPageIndex(int pageIndex) {
